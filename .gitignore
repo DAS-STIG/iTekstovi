@@ -1,3 +1,4 @@
 .vscode
 .DS_Store
 publish/*
+webscrape/node_modules

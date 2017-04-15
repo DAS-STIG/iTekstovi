@@ -5,6 +5,17 @@
  * SqlType     : PostgreSql 
  */
 
+-- User: itekstovi_admin
+-- DROP USER itekstovi_admin;
+
+CREATE USER itekstovi_admin WITH
+  LOGIN
+  NOSUPERUSER
+  INHERIT
+  CREATEDB
+  NOCREATEROLE
+  NOREPLICATION;
+  
 -- Database: itekstovi_db
 
 -- DROP DATABASE "itekstovi_db";
@@ -32,7 +43,12 @@ CREATE TABLE itvi.song
     created timestamp without time zone DEFAULT now(),
     updated timestamp without time zone,
     is_visible boolean,
-    CONSTRAINT "song_id_pk" PRIMARY KEY (id)
+    artist_id bigint NOT NULL,
+    CONSTRAINT song_id_pk PRIMARY KEY (id),
+    CONSTRAINT artist_id_fk FOREIGN KEY (artist_id)
+        REFERENCES itvi.artist (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 WITH (
     OIDS = FALSE
@@ -40,7 +56,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE itvi.song
-    OWNER to "itekstovi_admin";
+    OWNER to itekstovi_admin;
 
 -- Table: itvi.artist
 

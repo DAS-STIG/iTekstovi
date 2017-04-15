@@ -26,6 +26,9 @@ namespace iTekstovi.API.Models
         [ColumnName("updated")]
         public DateTime? Updated { get; set; }
 
+        [ColumnName("is_visible")]
+        public bool IsVisible { get; set; }
+
         [Required]
         [ColumnName("artist_id")]
         public int ArtistId { get; set;}

@@ -7,7 +7,7 @@ using Npgsql;
 using iTekstovi.API.DAL.PgSql;
 using iTekstovi.API.Models;
 
-namespace iTekstovi.API.App_Classes
+namespace iTekstovi.API.AppClasses
 {
     public static class Extensions 
     {

@@ -8,10 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using iTekstovi.API.DAL;
+
 namespace iTekstovi.API
 {
     public class Startup
     {
+        private const string API_START_ROUTE = "/api/v1"; 
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -29,6 +33,7 @@ namespace iTekstovi.API
         {
             // Add framework services.
             services.AddMvc();
+            services.AddScoped<IDataService, DataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +42,9 @@ namespace iTekstovi.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapRoute("default", API_START_ROUTE + "/{controller}/{action}/{?id}"); 
+            });
         }
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Example Get Model Stored Procedure 
+ * Example Get Song Stored Procedure 
  * ----------------------------------------
  * Author      : Addison B. 
  * Description : This stored procedure can be used as a template for PgSql 

@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using iTekstovi.API.App_Classes;
+using iTekstovi.API.AppClasses;
 
 namespace iTekstovi.API.Models
 {
@@ -25,5 +25,8 @@ namespace iTekstovi.API.Models
 
         [ColumnName("updated")]
         public DateTime? Updated { get; set; }
+
+        [ColumnName("is_visible")]
+        public bool IsVisible { get; set; }
     }
 }

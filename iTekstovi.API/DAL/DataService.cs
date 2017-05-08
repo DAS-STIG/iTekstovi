@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using iTekstovi.API.DAL.PgSql;
 using iTekstovi.API.Models;
 
@@ -5,16 +7,21 @@ namespace iTekstovi.API.DAL
 {
     public interface IDataService 
     {
-        IRepository<SongModel> ModelName { get; set; }    
+        IRepository<SongModel> Songs { get; set; }    
+
+        IRepository<ArtistModel> Artists { get; set; }
     }
 
     public class DataService : IDataService
     {
-       public IRepository<SongModel> ModelName { get; set; }
+       public IRepository<SongModel> Songs { get; set; }
+
+       public IRepository<ArtistModel> Artists { get; set; }
 
        public DataService() 
        {
-           this.ModelName = new Repository<SongModel>(); 
+           this.Songs = new Repository<SongModel>(); 
+           this.Artists = new Repository<ArtistModel>(); 
        }
 
        /// <summary>
@@ -23,7 +30,8 @@ namespace iTekstovi.API.DAL
        /// <param name="_pgSql"></param>
        public DataService(IPgSql _pgSql) 
        {
-           this.ModelName = new Repository<SongModel>(_pgSql); 
+           this.Songs = new Repository<SongModel>(_pgSql); 
+           this.Artists = new Repository<ArtistModel>(_pgSql);
        }
     }
 }

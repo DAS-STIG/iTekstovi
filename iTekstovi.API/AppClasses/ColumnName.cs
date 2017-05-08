@@ -1,6 +1,6 @@
 using System;
 
-namespace iTekstovi.API.App_Classes
+namespace iTekstovi.API.AppClasses
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class ColumnName : Attribute 

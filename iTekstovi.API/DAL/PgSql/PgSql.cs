@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Npgsql;
 using NpgsqlTypes;
-using iTekstovi.API.App_Classes;
+using iTekstovi.API.AppClasses;
 
 namespace iTekstovi.API.DAL.PgSql
 {

@@ -1,5 +1,5 @@
 /**
- * List Song Stored Procedure 
+ * Save Song Stored Procedure 
  * ----------------------------------------
  * Author      : Addison B. 
  */
@@ -12,7 +12,7 @@ CREATE OR REPLACE FUNCTION itvi.save_song(
 	p_is_visible boolean DEFAULT TRUE,
 	p_id UUID DEFAULT uuid_nil()
 ) 
- RETURNS bigint 
+ RETURNS integer 
 AS $$
 	DECLARE affected_rows Integer DEFAULT 0;
 BEGIN

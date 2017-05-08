@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Npgsql;
 using NpgsqlTypes;
 using iTekstovi.API.Models;
-using iTekstovi.API.App_Classes;
+using iTekstovi.API.AppClasses;
 
 namespace iTekstovi.API.DAL.PgSql
 {

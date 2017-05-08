@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using iTekstovi.API.App_Classes;
+using iTekstovi.API.AppClasses;
 
 namespace iTekstovi.API.Models 
 {

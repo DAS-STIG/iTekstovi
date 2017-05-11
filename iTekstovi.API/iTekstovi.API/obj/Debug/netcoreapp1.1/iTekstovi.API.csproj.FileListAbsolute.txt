@@ -1,0 +1,9 @@
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\bin\Debug\netcoreapp1.1\iTekstovi.API.deps.json
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\bin\Debug\netcoreapp1.1\iTekstovi.API.runtimeconfig.json
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\bin\Debug\netcoreapp1.1\iTekstovi.API.runtimeconfig.dev.json
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\obj\Debug\netcoreapp1.1\iTekstovi.API.csprojResolveAssemblyReference.cache
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\obj\Debug\netcoreapp1.1\iTekstovi.API.AssemblyInfo.cs
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\bin\Debug\netcoreapp1.1\iTekstovi.API.dll
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\bin\Debug\netcoreapp1.1\iTekstovi.API.pdb
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\obj\Debug\netcoreapp1.1\iTekstovi.API.dll
+C:\Git\iTekstovi\iTekstovi.API\iTekstovi.API\obj\Debug\netcoreapp1.1\iTekstovi.API.pdb

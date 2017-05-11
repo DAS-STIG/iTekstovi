@@ -14,7 +14,7 @@ namespace iTekstovi.API
 {
     public class Startup
     {
-        private const string API_START_ROUTE = "/api/v1"; 
+        private const string API_BASE_PATH = "api/v1"; 
 
         public Startup(IHostingEnvironment env)
         {
@@ -43,7 +43,7 @@ namespace iTekstovi.API
             loggerFactory.AddDebug();
 
             app.UseMvc(routes => {
-                routes.MapRoute("default", API_START_ROUTE + "/{controller}/{action}/{?id}"); 
+                routes.MapRoute("default", API_BASE_PATH + "/{controller}/{action}/{id?}"); 
             });
         }
     }

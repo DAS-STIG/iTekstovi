@@ -20,7 +20,7 @@ namespace iTekstovi.API.Controllers
 
         public DALController() { }
         
-        public async Task<List<T>> List(Guid id) 
+        public async Task<List<T>> List(Guid? id) 
         {
             return await this._Repository.All(id.ToString());
         }

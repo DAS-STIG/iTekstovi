@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using iTekstovi.API.DAL;
+using iTekstovi.API.AppClasses;
 
 namespace iTekstovi.API
 {
@@ -34,6 +31,7 @@ namespace iTekstovi.API
             // Add framework services.
             services.AddMvc();
             services.AddScoped<IDataService, DataService>();
+            services.Configure<ApiConfig>(Configuration.GetSection("ApiConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

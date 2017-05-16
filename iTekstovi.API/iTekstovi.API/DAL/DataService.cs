@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using iTekstovi.API.DAL.PgSql;
 using iTekstovi.API.Models;
+using Microsoft.Extensions.Options;
+
+using iTekstovi.API.AppClasses;
 
 namespace iTekstovi.API.DAL
 {
@@ -18,10 +21,10 @@ namespace iTekstovi.API.DAL
 
        public IRepository<ArtistModel> Artists { get; set; }
 
-       public DataService() 
+       public DataService(IOptions<ApiConfig> configValues) 
        {
-           this.Songs = new Repository<SongModel>(); 
-           this.Artists = new Repository<ArtistModel>(); 
+           this.Songs = new Repository<SongModel>(configValues); 
+           this.Artists = new Repository<ArtistModel>(configValues); 
        }
 
        /// <summary>

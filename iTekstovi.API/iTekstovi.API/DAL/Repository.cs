@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Npgsql;
 using iTekstovi.API.DAL.PgSql;
 using iTekstovi.API.AppClasses;
+using Microsoft.Extensions.Options;
 
 namespace iTekstovi.API.DAL
 {
@@ -31,9 +32,9 @@ namespace iTekstovi.API.DAL
     {
         private IPgSql _PgSql { get; set; }
 
-        public Repository()
+        public Repository(IOptions<ApiConfig> configValues)
         {
-            _PgSql = new iTekstovi.API.DAL.PgSql.PgSql();
+            _PgSql = new iTekstovi.API.DAL.PgSql.PgSql(configValues);
         }
 
         public Repository(IPgSql _pgSql)

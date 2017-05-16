@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Npgsql;
 using NpgsqlTypes;
 using iTekstovi.API.AppClasses;
+using Microsoft.Extensions.Options;
 
 namespace iTekstovi.API.DAL.PgSql
 {
@@ -15,6 +16,12 @@ namespace iTekstovi.API.DAL.PgSql
     /// </summary>
     public class PgSql : PgSqlObjects, IPgSql
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly ApiConfig _apiConfig;
+
         /// <summary>
         /// PostgreSql Connection String
         /// </summary>
@@ -23,11 +30,16 @@ namespace iTekstovi.API.DAL.PgSql
         {
             get 
             {
-                // add connection string here
-                return "";
-            }
-        } 
+                if (_apiConfig == null)
+                {
+                    throw new MissingMemberException("ApiConfig has not been initialized.");
+                }
 
+                return _apiConfig.ConnectionString;
+            }
+        }
+
+        #region Static Methods
         /// <summary>
         /// Creates an NpgsqlParameter with type, name, and value passed in 
         /// </summary>
@@ -69,6 +81,13 @@ namespace iTekstovi.API.DAL.PgSql
             }
 
             return cmd;
+        }
+
+        #endregion
+
+        public PgSql(IOptions<ApiConfig> configValues)
+        {
+            _apiConfig = configValues.Value;
         }
 
         /// <summary>

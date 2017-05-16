@@ -5,20 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using iTekstovi.API.Models;
 using iTekstovi.API.AppClasses;
 using iTekstovi.API.DAL;
+using Microsoft.Extensions.Options;
 
 namespace iTekstovi.API.Controllers
 {
     public class DALController<T> : Controller where T : class
     {
-        private IRepository<T> _Repository 
-        {
-            get 
-            {
-                return new Repository<T>();
-            }
-        }
+        private IRepository<T> _Repository { get; set; }
+        
 
-        public DALController() { }
+        public DALController(IOptions<ApiConfig> configValues)
+        {
+            _Repository = new Repository<T>(configValues);
+        }
         
         public async Task<List<T>> List(Guid? id) 
         {

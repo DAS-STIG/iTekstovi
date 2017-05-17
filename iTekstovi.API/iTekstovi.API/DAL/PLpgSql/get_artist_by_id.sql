@@ -14,8 +14,8 @@ CREATE OR REPLACE FUNCTION itvi.get_artist_by_id (
 	about text,
 	song_id UUID,
 	is_visible boolean,
-	created timestamp with time zone,
-	updated timestamp with time zone
+	created timestamp,
+	updated timestamp
 ) 
 AS $$
 BEGIN
@@ -29,7 +29,7 @@ BEGIN
 	artist.created,
 	artist.updated
 FROM 
-	itvi.artist inner join itvi.song ON artist.id = song.artist_id
+	itvi.artist left outer join itvi.song ON artist.id = song.artist_id
 WHERE
 	artist.id = p_id;
 END; $$ 

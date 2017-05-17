@@ -17,25 +17,25 @@ namespace iTekstovi.API.DAL.PgSql
         /// Dictionary with key of Model type and value of stored procedure name to retrive a 
         /// list of objects from the table associated with the Model type key
         /// </summary>
-        Dictionary<Type, PgSqlFunction> ListProcedures { get; } 
+        IDictionary<Type, PgSqlFunction> ListProcedures { get; } 
 
         /// <summary>
         /// Dictionary with key of Table Name and value of stored procedure name to retrive a 
         /// single  object from the key Table Name
         /// </summary>
-        Dictionary<Type, PgSqlFunction> GetProcedures { get; }
+        IDictionary<Type, PgSqlFunction> GetProcedures { get; }
 
         /// <summary>
         /// Dictionary with key of Table Name and value of stored procedure name to save (upsert)
         /// object in the key Table Name
         /// </summary>
-        Dictionary<Type, PgSqlFunction> SaveProcedures { get; }
+        IDictionary<Type, PgSqlFunction> SaveProcedures { get; }
 
          /// <summary>
         /// Dictionary with key of Table Name and value of stored procedure name to delete a 
         /// single object from the key Table Name
         /// </summary>
-        Dictionary<Type, PgSqlFunction> DeleteProcedures { get; }
+        IDictionary<Type, PgSqlFunction> DeleteProcedures { get; }
 
         #endregion
         

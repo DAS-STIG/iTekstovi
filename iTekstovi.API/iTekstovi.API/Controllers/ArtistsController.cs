@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-
 using iTekstovi.API.Models;
 using iTekstovi.API.AppClasses;
 

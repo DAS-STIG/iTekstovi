@@ -1,0 +1,3 @@
+﻿iTekstovi.API To Do: 
+---------------------------------
+* Create common id type (int vs Guid)

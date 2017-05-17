@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using iTekstovi.API.Models;
+using Microsoft.Extensions.Options;
 using iTekstovi.API.AppClasses;
 using iTekstovi.API.DAL;
-using Microsoft.Extensions.Options;
 
 namespace iTekstovi.API.Controllers
 {
@@ -19,12 +18,14 @@ namespace iTekstovi.API.Controllers
             _Repository = new Repository<T>(configValues);
         }
         
-        public async Task<List<T>> List(Guid? id) 
+        [HttpGet]
+        public virtual async Task<List<T>> List(Guid? id) 
         {
             return await this._Repository.All(id.ToString());
         }
 
-        public async Task<T> Get(int id)
+        [HttpGet]
+        public virtual async Task<T> Get(int id)
         {
             T modelObj = await this._Repository.Get(id.ToString());
 
@@ -36,7 +37,8 @@ namespace iTekstovi.API.Controllers
             return modelObj;
         }
 
-        public async Task Post([FromBody]T modelObj)
+        [HttpPost]
+        public virtual async Task Post([FromBody]T modelObj)
         {
             if (!ModelState.IsValid)
             {   
@@ -51,7 +53,8 @@ namespace iTekstovi.API.Controllers
             }
         }
 
-        public async Task Put(int id, [FromBody]T modelObj)
+        [HttpPut]
+        public virtual async Task Put(int id, [FromBody]T modelObj)
         {
             if (!ModelState.IsValid)
             {   
@@ -77,7 +80,8 @@ namespace iTekstovi.API.Controllers
             }
         }
 
-        public async Task Delete(int id)
+        [HttpGet]
+        public virtual async Task Delete(int id)
         {   
             T modelObj = await _Repository.Get(id.ToString());
 

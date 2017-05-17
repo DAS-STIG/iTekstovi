@@ -9,7 +9,7 @@ using iTekstovi.API.Models;
 
 namespace iTekstovi.API.AppClasses
 {
-    public static class Extensions 
+    public static class Extensions
     {
         /// <summary>
         /// Gets value from Dictionary if it exists else returns null or optional orVal
@@ -18,7 +18,7 @@ namespace iTekstovi.API.AppClasses
         /// <param name="key"></param>
         /// <param name="orVal"></param>
         /// <returns></returns>
-        public static PgSqlFunction GetValOr(this Dictionary<Type, PgSqlFunction> @this, Type key, PgSqlFunction orVal = null)
+        public static PgSqlFunction GetValOr(this IDictionary<Type, PgSqlFunction> @this, Type key, PgSqlFunction orVal = null)
         {
             return @this.ContainsKey(key) ? @this[key] : orVal;
         }
@@ -35,8 +35,63 @@ namespace iTekstovi.API.AppClasses
 
             if (int.TryParse(@this.ToString(), out castInt))
                 return castInt;
-        
-            return orVal; 
+
+            return orVal;
+        }
+
+        /// <summary>
+        /// Casts an object to a DateTime or orVal if cast unseccussful. Note if orVal
+        /// is null and unsuccessful cast DateTime.Now will be returned. 
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="orVal"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTimeOr(this object @this, DateTime? orVal = null)
+        {
+            DateTime castDate;
+
+            if (!DateTime.TryParse(@this.ToString(), out castDate))
+            {
+                castDate = orVal != null ? (DateTime)orVal : DateTime.Now;
+            }
+           
+            return castDate;
+        }
+
+        /// <summary>
+        /// Casts an object to a DateTime or returns null if unsuccussful
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime? ToDateTimeNullable(this object @this)
+        {
+
+            DateTime castDate;
+
+            if (DateTime.TryParse(@this.ToString(), out castDate))
+            {
+                return castDate;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Cast an object to bool or returns false if unsuccessful
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="orVal"></param>
+        /// <returns></returns>
+        public static bool ToBoolOr(this object @this, bool orVal = false)
+        {
+            bool castBool;
+
+            if (bool.TryParse(@this.ToString(), out castBool))
+            {
+                return true;
+            }
+
+            return orVal;
         }
 
         /// <summary>
@@ -63,7 +118,7 @@ namespace iTekstovi.API.AppClasses
 
             return paramList;
         }
-        
+
         /// <summary>
         /// Casts a DbDataReader object to a object Model
         /// </summary>
@@ -78,22 +133,35 @@ namespace iTekstovi.API.AppClasses
 
             // ToDo: use GetColumnSchema for generic mapping
             // map NpgsqlDataReader to ModelName type
-            if (typeof (T) == typeof (SongModel) && objectCast == null) 
+            if (typeof(T) == typeof(SongModel) && objectCast == null)
             {
-                var modelName = new SongModel 
+                var modelName = new SongModel
                 {
                     Id = Guid.Parse(@this["id"].ToString()),
                     Name = @this["name"].ToString(),
                     Description = @this["description"].ToString(),
                     Lyrics = @this["lyrics"].ToString(),
-                    Created = @this["created"] != DBNull.Value ? DateTime.Parse(@this["created"].ToString()) : DateTime.MinValue,
-                    Updated = @this["updated"] != DBNull.Value ? (DateTime?)DateTime.Parse(@this["updated"].ToString()) : null,  
-                    ArtistId = @this["artist_id"] != DBNull.Value ? (int)@this["artist_id"] : -1            
+                    Created = @this["created"].ToDateTimeOr(DateTime.MinValue),
+                    Updated = @this["updated"].ToDateTimeNullable(),
+                    ArtistId = @this["artist_id"].ToIntOr(-1)
                 };
 
                 objectCast = modelName as T;
             }
 
+            if (typeof(T) == typeof(ArtistModel) && objectCast == null)
+            {
+                var modelName = new ArtistModel
+                {
+                    Id = @this["id"].ToIntOr(-1),
+                    FirstName = @this["first_name"].ToString(),
+                    LastName = @this["last_name"].ToString(),
+                    About = @this["about"].ToString(),
+                    Created = @this["created"].ToDateTimeOr(DateTime.MinValue),
+                    Updated = @this["updated"].ToDateTimeNullable(),
+                    IsVisible = @this["is_visible"].ToBoolOr()
+                };
+            }
             
             return objectCast;
         }

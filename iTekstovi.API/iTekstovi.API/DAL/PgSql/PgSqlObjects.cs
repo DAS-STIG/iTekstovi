@@ -17,8 +17,8 @@ namespace iTekstovi.API.DAL.PgSql
         /// Dictionary with key of Model type and value of stored procedure name to retrive a 
         /// list of objects from the table associated with the Model type key
         /// </summary>
-        private Dictionary<Type, PgSqlFunction> _listProcedures = null;
-        public Dictionary<Type, PgSqlFunction> ListProcedures 
+        private IDictionary<Type, PgSqlFunction> _listProcedures = null;
+        public IDictionary<Type, PgSqlFunction> ListProcedures 
         { 
             get 
             {
@@ -26,13 +26,21 @@ namespace iTekstovi.API.DAL.PgSql
                 {
                     _listProcedures =  new Dictionary<Type, PgSqlFunction> 
                     {
-                        // add list stored procedures here 
                         { 
                             typeof (SongModel), new PgSqlFunction 
                             { 
-                                Name = "list_model_name",
+                                Name = "itvi.list_song",
                                 Parameters = new NpgsqlParameter[] { PgSql.NpgParam(NpgsqlDbType.Boolean, "p_only_visible" ) }
-                            } 
+                            }
+                            
+                        },
+                        {
+
+                        typeof (ArtistModel), new PgSqlFunction
+                            {
+                                Name = "itvi.list_artist",
+                                Parameters = new NpgsqlParameter[] { PgSql.NpgParam(NpgsqlDbType.Boolean, "p_only_visible" ) }
+                            }
                         }
                     };
                 } // end if _listProcedures == null
@@ -45,8 +53,8 @@ namespace iTekstovi.API.DAL.PgSql
         /// Dictionary with key of Table Name and value of stored procedure name to retrive a 
         /// single  object from the key Table Name
         /// </summary>
-        private Dictionary<Type, PgSqlFunction> _getProcedures = null;
-        public Dictionary<Type, PgSqlFunction> GetProcedures 
+        private IDictionary<Type, PgSqlFunction> _getProcedures = null;
+        public IDictionary<Type, PgSqlFunction> GetProcedures 
         { 
             get 
             {
@@ -54,15 +62,20 @@ namespace iTekstovi.API.DAL.PgSql
                 {
                     _getProcedures = new Dictionary<Type, PgSqlFunction> 
                     {
-                        // add get procedures here 
                         { 
                             typeof(SongModel),  new PgSqlFunction 
                             {
-                                Name = "get_model_name_by_id",
-                                Parameters = new NpgsqlParameter[] { PgSql.NpgParam(NpgsqlDbType.Uuid, "p_model_id") }
+                                Name = "itvi.get_song_by_id",
+                                Parameters = new NpgsqlParameter[] { PgSql.NpgParam(NpgsqlDbType.Uuid, "p_id") }
                             } 
+                        },
+                        {
+                            typeof(ArtistModel),  new PgSqlFunction
+                            {
+                                Name = "itvi.get_artist_by_id",
+                                Parameters = new NpgsqlParameter[] { PgSql.NpgParam(NpgsqlDbType.Bigint, "p_id") }
+                            }
                         }
-                                  
                     };
                 } // end if _getProcedures == null
                     
@@ -74,8 +87,8 @@ namespace iTekstovi.API.DAL.PgSql
         /// Dictionary with key of Table Name and value of stored procedure name to save (upsert)
         /// object in the key Table Name
         /// </summary>
-        private Dictionary<Type, PgSqlFunction> _saveProcedures = null;
-        public Dictionary<Type, PgSqlFunction> SaveProcedures 
+        private IDictionary<Type, PgSqlFunction> _saveProcedures = null;
+        public IDictionary<Type, PgSqlFunction> SaveProcedures 
         { 
             get 
             {
@@ -83,18 +96,32 @@ namespace iTekstovi.API.DAL.PgSql
                 {
                     _saveProcedures = new Dictionary<Type, PgSqlFunction>
                     {
-                        // add save procedures here
                         { 
                             typeof (SongModel), new PgSqlFunction 
                             {
-                                Name = "save_model_name",
+                                Name = "save_song",
                                 Parameters = new NpgsqlParameter[] 
                                 {
                                     PgSql.NpgParam(NpgsqlDbType.Text, "p_name"),
                                     PgSql.NpgParam(NpgsqlDbType.Text, "p_description"),
-                                    PgSql.NpgParam(NpgsqlDbType.Uuid, "p_model_id")
+                                    PgSql.NpgParam(NpgsqlDbType.Text, "p_lyrics"),
+                                    PgSql.NpgParam(NpgsqlDbType.Bigint, "p_artist_id"),
+                                    PgSql.NpgParam(NpgsqlDbType.Uuid, "p_id")
                                 }
                             } 
+                        },
+                        {
+                            typeof (ArtistModel), new PgSqlFunction
+                            {
+                                Name = "save_artist",
+                                Parameters = new NpgsqlParameter[]
+                                {
+                                    PgSql.NpgParam(NpgsqlDbType.Text, "p_first_name"),
+                                    PgSql.NpgParam(NpgsqlDbType.Text, "p_last1_name"),
+                                    PgSql.NpgParam(NpgsqlDbType.Text, "p_about"),
+                                    PgSql.NpgParam(NpgsqlDbType.Bigint, "p_id")
+                                }
+                            }
                         }
                     };
                 } // end if _saveProcedures == null
@@ -107,8 +134,8 @@ namespace iTekstovi.API.DAL.PgSql
         /// Dictionary with key of Table Name and value of stored procedure name to delete a 
         /// single object from the key Table Name
         /// </summary>
-        private Dictionary<Type, PgSqlFunction> _deleteProcedures = null;
-        public Dictionary<Type, PgSqlFunction> DeleteProcedures 
+        private IDictionary<Type, PgSqlFunction> _deleteProcedures = null;
+        public IDictionary<Type, PgSqlFunction> DeleteProcedures 
         { 
             get
             {
@@ -121,7 +148,7 @@ namespace iTekstovi.API.DAL.PgSql
                             typeof (SongModel), new PgSqlFunction 
                             {
                                 Name =  "delete_model",
-                                Parameters = new NpgsqlParameter[] { PgSql.NpgParam(NpgsqlDbType.Uuid, "p_model_id") }
+                                Parameters = new NpgsqlParameter[] { PgSql.NpgParam(NpgsqlDbType.Uuid, "p_id") }
                             }
                         }
                         
